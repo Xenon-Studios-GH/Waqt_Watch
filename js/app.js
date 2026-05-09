@@ -810,4 +810,71 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileMenuBtn.classList.toggle('active');
         });
     }
+    
+    if (document.querySelector('.hero-carousel')) {
+        initCarousel();
+    }
 });
+
+function initCarousel() {
+    const hero = document.querySelector('.hero');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const prevBtn = document.querySelector('.carousel-arrow.prev');
+    const nextBtn = document.querySelector('.carousel-arrow.next');
+    const dotsContainer = document.querySelector('.carousel-dots');
+    
+    let currentIndex = 0;
+    let autoPlayInterval;
+    const slideCount = slides.length;
+    
+    slides.forEach((_, index) => {
+        const dot = document.createElement('span');
+        dot.classList.add('carousel-dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+    
+    const dots = document.querySelectorAll('.carousel-dot');
+    
+    function goToSlide(index) {
+        slides[currentIndex].classList.remove('active');
+        dots[currentIndex].classList.remove('active');
+        currentIndex = index;
+        slides[currentIndex].classList.add('active');
+        dots[currentIndex].classList.add('active');
+    }
+    
+    function nextSlide() {
+        goToSlide((currentIndex + 1) % slideCount);
+    }
+    
+    function prevSlide() {
+        goToSlide((currentIndex - 1 + slideCount) % slideCount);
+    }
+    
+    function startAutoPlay() {
+        autoPlayInterval = setInterval(nextSlide, 4000);
+    }
+    
+    function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+    }
+    
+    prevBtn.addEventListener('click', () => {
+        prevSlide();
+        stopAutoPlay();
+        startAutoPlay();
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        nextSlide();
+        stopAutoPlay();
+        startAutoPlay();
+    });
+    
+    hero.addEventListener('mouseenter', stopAutoPlay);
+    hero.addEventListener('mouseleave', startAutoPlay);
+    
+    startAutoPlay();
+}
