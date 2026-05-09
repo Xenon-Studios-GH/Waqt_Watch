@@ -435,37 +435,71 @@ h4 { font-size: 24px; }
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 16px 40px;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 2px;
+    gap: 10px;
+    padding: 18px 48px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    border-radius: 2px;
-    transition: all var(--transition-normal);
+    border-radius: 4px;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
 }
 
 .btn-primary {
-    background: var(--gold);
-    color: var(--primary-black);
+    background: linear-gradient(135deg, #c9a962 0%, #a88a4a 100%);
+    color: #0a0a0a;
+    border: none;
+    box-shadow: 0 4px 20px rgba(201, 169, 98, 0.3);
 }
 
 .btn-primary:hover {
-    background: var(--gold-light);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(201, 169, 98, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(201, 169, 98, 0.45), 0 0 30px rgba(201, 169, 98, 0.2);
+}
+
+.btn-primary:active {
+    transform: translateY(-1px);
 }
 
 .btn-outline {
-    border: 1px solid var(--gold);
-    color: var(--gold);
+    border: 1px solid rgba(201, 169, 98, 0.6);
+    color: #c9a962;
     background: transparent;
+    position: relative;
+}
+
+.btn-outline::before {
+    background: linear-gradient(90deg, transparent, rgba(201, 169, 98, 0.1), transparent);
 }
 
 .btn-outline:hover {
-    background: var(--gold);
-    color: var(--primary-black);
+    background: linear-gradient(135deg, rgba(201, 169, 98, 0.15) 0%, rgba(168, 138, 74, 0.1) 100%);
+    border-color: #c9a962;
+    color: #c9a962;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(201, 169, 98, 0.2), inset 0 0 20px rgba(201, 169, 98, 0.05);
+}
+
+.btn-outline:active {
+    transform: translateY(-1px);
 }
 
 .hero-btn {
@@ -712,22 +746,40 @@ h4 { font-size: 24px; }
 
 .quick-add-btn {
     padding: 14px 28px;
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold);
+    background: linear-gradient(135deg, rgba(201, 169, 98, 0.1) 0%, rgba(168, 138, 74, 0.05) 100%);
+    border: 1px solid rgba(201, 169, 98, 0.6);
+    color: #c9a962;
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 3px;
     text-transform: uppercase;
-    border-radius: 2px;
+    border-radius: 4px;
     transform: translateY(20px);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+}
+
+.quick-add-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(201, 169, 98, 0.2), transparent);
+    transition: left 0.5s ease;
 }
 
 .quick-add-btn:hover {
-    background: var(--gold);
-    color: var(--primary-black);
-    box-shadow: 0 0 30px rgba(201, 169, 98, 0.3);
+    background: linear-gradient(135deg, #c9a962 0%, #a88a4a 100%);
+    color: #0a0a0a;
+    box-shadow: 0 8px 30px rgba(201, 169, 98, 0.35);
+    transform: translateY(0);
+}
+
+.quick-add-btn:hover::before {
+    left: 100%;
 }
 
 .product-card:hover .quick-add-btn {
@@ -1003,7 +1055,7 @@ h4 { font-size: 24px; }
 }
 
 .brands-carousel.left {
-    margin-bottom: 20px;
+    margin-bottom: -30px;
 }
 
 .brands-track {
