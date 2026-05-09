@@ -773,11 +773,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     if (page === 'checkout.html') {
-        if (state.cart.length === 0) {
-            window.location.href = 'products.html';
-            return;
-        }
-        
         renderCheckoutSummary();
         handleCheckoutStep(1);
         

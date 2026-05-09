@@ -116,16 +116,11 @@
         <div class="container">
             <h2 class="section-title">You May Also <span>Like</span></h2>
             <div class="products-grid">
-                <div class="product-card">
+                <div class="product-card" onclick="location.href='product-detail.html?id=2'">
                     <div class="product-image">
-                        <svg viewBox="0 0 100 100" fill="none" stroke="#1e40af" stroke-width="2">
-                            <circle cx="50" cy="50" r="35"/>
-                            <circle cx="50" cy="50" r="30"/>
-                            <line x1="50" y1="50" x2="50" y2="28"/>
-                            <line x1="50" y1="50" x2="62" y2="50"/>
-                        </svg>
+                        <img src="assets/images/heroBackground-02.webp" alt="Watch" class="w-full h-full object-cover">
                         <div class="product-overlay">
-                            <button class="quick-add-btn">Add to Cart</button>
+                            <button class="quick-add-btn" data-id="2">Add to Cart</button>
                         </div>
                     </div>
                     <div class="product-info">
@@ -134,16 +129,11 @@
                         <p class="product-price">$85,000</p>
                     </div>
                 </div>
-                <div class="product-card">
+                <div class="product-card" onclick="location.href='product-detail.html?id=3'">
                     <div class="product-image">
-                        <svg viewBox="0 0 100 100" fill="none" stroke="#374151" stroke-width="2">
-                            <circle cx="50" cy="50" r="35"/>
-                            <circle cx="50" cy="50" r="30"/>
-                            <line x1="50" y1="50" x2="50" y2="28"/>
-                            <line x1="50" y1="50" x2="62" y2="50"/>
-                        </svg>
+                        <img src="assets/images/heroBackground-03.webp" alt="Watch" class="w-full h-full object-cover">
                         <div class="product-overlay">
-                            <button class="quick-add-btn">Add to Cart</button>
+                            <button class="quick-add-btn" data-id="3">Add to Cart</button>
                         </div>
                     </div>
                     <div class="product-info">
@@ -152,16 +142,11 @@
                         <p class="product-price">$7,200</p>
                     </div>
                 </div>
-                <div class="product-card">
+                <div class="product-card" onclick="location.href='product-detail.html?id=4'">
                     <div class="product-image">
-                        <svg viewBox="0 0 100 100" fill="none" stroke="#c9a962" stroke-width="2">
-                            <circle cx="50" cy="50" r="35"/>
-                            <circle cx="50" cy="50" r="30"/>
-                            <line x1="50" y1="50" x2="50" y2="28"/>
-                            <line x1="50" y1="50" x2="62" y2="50"/>
-                        </svg>
+                        <img src="assets/images/heroBackground-04.webp" alt="Watch" class="w-full h-full object-cover">
                         <div class="product-overlay">
-                            <button class="quick-add-btn">Add to Cart</button>
+                            <button class="quick-add-btn" data-id="4">Add to Cart</button>
                         </div>
                     </div>
                     <div class="product-info">
@@ -170,16 +155,11 @@
                         <p class="product-price">$45,000</p>
                     </div>
                 </div>
-                <div class="product-card">
+                <div class="product-card" onclick="location.href='product-detail.html?id=6'">
                     <div class="product-image">
-                        <svg viewBox="0 0 100 100" fill="none" stroke="#d97706" stroke-width="2">
-                            <circle cx="50" cy="50" r="35"/>
-                            <circle cx="50" cy="50" r="30"/>
-                            <line x1="50" y1="50" x2="50" y2="28"/>
-                            <line x1="50" y1="50" x2="62" y2="50"/>
-                        </svg>
+                        <img src="assets/images/heroBackground-05.webp" alt="Watch" class="w-full h-full object-cover">
                         <div class="product-overlay">
-                            <button class="quick-add-btn">Add to Cart</button>
+                            <button class="quick-add-btn" data-id="6">Add to Cart</button>
                         </div>
                     </div>
                     <div class="product-info">
@@ -330,7 +310,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script>
+    <script src="js/app.js"></script>
+    <script>
         const thumbnails = document.querySelectorAll('.product-thumbnail');
         const mainImage = document.querySelector('.product-main-image img');
         
