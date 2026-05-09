@@ -972,6 +972,25 @@ h4 { font-size: 24px; }
     margin: 0 auto;
 }
 
+@media (max-width: 1200px) {
+    .top-brands-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .top-brands-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-brands-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 .top-brand-card {
     position: relative;
     border-radius: 12px;
@@ -1678,6 +1697,7 @@ h4 { font-size: 24px; }
 
 .products-page {
     padding: 120px 24px 80px;
+    background: var(--primary-black);
 }
 
 .products-page-header {
@@ -1700,10 +1720,28 @@ h4 { font-size: 24px; }
     gap: 48px;
     max-width: var(--container-width);
     margin: 0 auto;
+    align-items: flex-start;
+}
+
+.filters-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    background: var(--charcoal);
+    padding: 32px;
+    border-radius: 4px;
+    height: fit-content;
+    position: sticky;
+    top: 100px;
 }
 
 .products-main {
     flex: 1;
+    min-width: 0;
+}
+
+.products-main .products-grid {
+    max-width: none;
+    margin: 0;
 }
 
 .products-toolbar {
