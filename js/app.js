@@ -814,7 +814,45 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('.hero-carousel')) {
         initCarousel();
     }
+    
+    if (document.querySelector('.hero')) {
+        initHeaderScroll();
+    }
 });
+
+function initHeaderScroll() {
+    const header = document.querySelector('.header');
+    const hero = document.querySelector('.hero');
+    
+    gsap.registerPlugin(ScrollTrigger);
+    
+    gsap.to(header, {
+        y: -100,
+        duration: 0.3,
+        ease: 'power2.out'
+    });
+    
+    ScrollTrigger.create({
+        trigger: hero,
+        start: 'top top',
+        end: 'bottom top',
+        onUpdate: (self) => {
+            if (self.progress < 0.1) {
+                gsap.to(header, {
+                    y: -100,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            } else {
+                gsap.to(header, {
+                    y: 0,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            }
+        }
+    });
+}
 
 function initCarousel() {
     const hero = document.querySelector('.hero');
