@@ -818,6 +818,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('.hero')) {
         initHeaderScroll();
     }
+    
+    if (document.querySelector('.new-arrivals-section, .top-sales-section')) {
+        initProductSections();
+    }
 });
 
 function initHeaderScroll() {
@@ -852,6 +856,23 @@ function initHeaderScroll() {
             }
         }
     });
+}
+
+function initProductSections() {
+    const newArrivalsGrid = document.getElementById('new-arrivals-grid');
+    const topSalesGrid = document.getElementById('top-sales-grid');
+    
+    if (newArrivalsGrid) {
+        const newArrivals = products.slice(6, 12);
+        newArrivalsGrid.innerHTML = newArrivals.map(renderProductCard).join('');
+        attachProductCardListeners();
+    }
+    
+    if (topSalesGrid) {
+        const topSales = [products[1], products[3], products[4], products[0], products[5], products[2]];
+        topSalesGrid.innerHTML = topSales.map(renderProductCard).join('');
+        attachProductCardListeners();
+    }
 }
 
 function initCarousel() {

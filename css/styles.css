@@ -494,37 +494,68 @@ h4 { font-size: 24px; }
 }
 
 .product-card {
-    background: var(--dark-gray);
-    border-radius: 4px;
+    background: linear-gradient(145deg, #1f1f1f 0%, #151515 100%);
+    border-radius: 8px;
     overflow: hidden;
     position: relative;
-    transition: all var(--transition-normal);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 1px solid rgba(201, 169, 98, 0.1);
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 .product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(201, 169, 98, 0.1);
+    border-color: rgba(201, 169, 98, 0.3);
+}
+
+.product-card:hover::before {
+    opacity: 1;
 }
 
 .product-image {
     position: relative;
-    height: 350px;
-    background: linear-gradient(135deg, var(--dark-gray) 0%, var(--charcoal) 100%);
+    height: 320px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
 
+.product-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, rgba(21, 21, 21, 1), transparent);
+    pointer-events: none;
+}
+
 .product-image svg {
-    width: 180px;
-    height: 180px;
+    width: 160px;
+    height: 160px;
     color: var(--gold);
-    transition: transform var(--transition-normal);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: drop-shadow(0 0 20px rgba(201, 169, 98, 0.2));
 }
 
 .product-card:hover .product-image svg {
-    transform: scale(1.1);
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 30px rgba(201, 169, 98, 0.4));
 }
 
 .product-overlay {
@@ -533,12 +564,13 @@ h4 { font-size: 24px; }
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(10, 10, 10, 0.7);
+    background: linear-gradient(to top, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.5) 50%, transparent 100%);
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
+    padding-bottom: 24px;
     opacity: 0;
-    transition: opacity var(--transition-normal);
+    transition: opacity 0.5s ease;
 }
 
 .product-card:hover .product-overlay {
@@ -546,20 +578,23 @@ h4 { font-size: 24px; }
 }
 
 .quick-add-btn {
-    padding: 12px 24px;
-    background: var(--gold);
-    color: var(--primary-black);
-    font-size: 12px;
+    padding: 14px 28px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     text-transform: uppercase;
     border-radius: 2px;
     transform: translateY(20px);
-    transition: all var(--transition-normal);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .quick-add-btn:hover {
-    background: var(--white);
+    background: var(--gold);
+    color: var(--primary-black);
+    box-shadow: 0 0 30px rgba(201, 169, 98, 0.3);
 }
 
 .product-card:hover .quick-add-btn {
@@ -567,52 +602,317 @@ h4 { font-size: 24px; }
 }
 
 .product-info {
-    padding: 24px;
+    padding: 28px 24px;
+    background: linear-gradient(to bottom, rgba(21, 21, 21, 0.8), transparent);
+    border-top: 1px solid rgba(201, 169, 98, 0.1);
 }
 
 .product-brand {
-    font-size: 12px;
-    letter-spacing: 2px;
+    font-size: 11px;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--muted-gray);
-    margin-bottom: 8px;
+    color: var(--gold);
+    margin-bottom: 10px;
+    font-weight: 500;
 }
 
 .product-name {
     font-family: var(--font-heading);
-    font-size: 20px;
-    margin-bottom: 8px;
+    font-size: 22px;
+    margin-bottom: 12px;
     color: var(--white);
+    font-weight: 400;
+    letter-spacing: 0.5px;
 }
 
 .product-price {
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--white);
+    font-family: var(--font-body);
+}
+
+.product-price::before {
+    content: '$';
+    color: var(--gold);
+    margin-right: 2px;
+}
     font-weight: 600;
     color: var(--gold);
 }
 
 .brands-section {
-    padding: 80px 24px;
+    padding: 80px 0;
     background: var(--primary-black);
+    overflow: hidden;
 }
 
-.brands-grid {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 64px;
-    flex-wrap: wrap;
+.brands-showcase {
+    padding: 100px 24px;
+    background: linear-gradient(180deg, var(--charcoal) 0%, var(--primary-black) 100%);
+}
+
+.brands-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 32px;
     max-width: var(--container-width);
     margin: 0 auto;
 }
 
+.brand-showcase-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 40px 24px;
+    background: linear-gradient(145deg, rgba(42, 42, 42, 0.5) 0%, rgba(26, 26, 26, 0.5) 100%);
+    border: 1px solid rgba(201, 169, 98, 0.08);
+    border-radius: 12px;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+}
+
+.brand-showcase-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(201, 169, 98, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(201, 169, 98, 0.1);
+}
+
+.brand-logo {
+    width: 120px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.4;
+    transition: opacity 0.4s ease;
+}
+
+.brand-logo svg {
+    width: 100%;
+    height: 100%;
+    color: var(--white);
+}
+
+.brand-showcase-card:hover .brand-logo {
+    opacity: 1;
+}
+
+.brand-showcase-name {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    color: var(--muted-gray);
+    letter-spacing: 1px;
+    transition: color 0.4s ease;
+}
+
+.brand-showcase-card:hover .brand-showcase-name {
+    color: var(--gold);
+}
+
+@media (max-width: 1200px) {
+    .brands-showcase-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .brands-showcase-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    
+    .brand-showcase-card {
+        padding: 24px 16px;
+    }
+}
+
+.new-arrivals-section,
+.top-sales-section {
+    padding: 100px 24px;
+    background: var(--charcoal);
+}
+
+.top-brands-section {
+    padding: 100px 24px;
+    background: var(--primary-black);
+}
+
+.section-footer {
+    text-align: center;
+    margin-top: 60px;
+}
+
+.section-footer .btn {
+    padding: 16px 48px;
+    font-size: 12px;
+    letter-spacing: 3px;
+}
+
+.top-brands-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+    max-width: var(--container-width);
+    margin: 0 auto;
+}
+
+.top-brand-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(145deg, #1f1f1f 0%, #0d0d0d 100%);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 1px solid rgba(201, 169, 98, 0.1);
+}
+
+.top-brand-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(201, 169, 98, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.top-brand-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(201, 169, 98, 0.15);
+    border-color: rgba(201, 169, 98, 0.4);
+}
+
+.top-brand-image {
+    height: 280px;
+    overflow: hidden;
+    position: relative;
+}
+
+.top-brand-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to top, rgba(13, 13, 13, 1), transparent);
+}
+
+.top-brand-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: grayscale(30%);
+}
+
+.top-brand-card:hover .top-brand-image img {
+    transform: scale(1.1);
+    filter: grayscale(0%);
+}
+
+.top-brand-info {
+    padding: 28px 20px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.top-brand-info h3 {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: var(--white);
+    letter-spacing: 1px;
+}
+
+.top-brand-info p {
+    font-size: 13px;
+    color: var(--muted-gray);
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.top-brand-info .btn {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+}
+
+.top-brand-card:hover .top-brand-info .btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 1200px) {
+    .top-brands-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .top-brands-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.brands-carousel-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.brands-carousel {
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+.brands-carousel.left {
+    margin-bottom: 20px;
+}
+
+.brands-track {
+    display: flex;
+    gap: 80px;
+    animation: marquee-left 25s linear infinite;
+}
+
+.brands-carousel.right .brands-track {
+    animation: marquee-right 25s linear infinite;
+}
+
+@keyframes marquee-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes marquee-right {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.brands-track:hover {
+    animation-play-state: paused;
+}
+
 .brand-item {
     font-family: var(--font-heading);
-    font-size: 24px;
+    font-size: 28px;
     color: var(--muted-gray);
-    opacity: 0.5;
+    opacity: 0.3;
     transition: all var(--transition-normal);
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .brand-item:hover {
