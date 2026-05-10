@@ -802,7 +802,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initHeaderScroll();
     }
 
-    if (document.querySelector('.new-arrivals-section, .top-sales-section')) {
+    if (document.getElementById('new-arrivals-grid') || document.getElementById('top-sales-grid')) {
         initProductSections();
     }
 
@@ -846,17 +846,24 @@ function initHeaderScroll() {
 }
 
 function initProductSections() {
+    console.log('initProductSections called');
     const newArrivalsGrid = document.getElementById('new-arrivals-grid');
     const topSalesGrid = document.getElementById('top-sales-grid');
 
+    console.log('newArrivalsGrid:', newArrivalsGrid);
+    console.log('topSalesGrid:', topSalesGrid);
+    console.log('products:', products);
+
     if (newArrivalsGrid) {
         const newArrivals = products.slice(0, 8);
+        console.log('Rendering new arrivals:', newArrivals.length);
         newArrivalsGrid.innerHTML = newArrivals.map(renderProductCard).join('');
         attachProductCardListeners();
     }
 
     if (topSalesGrid) {
         const topSales = products.slice(0, 8);
+        console.log('Rendering top sales:', topSales.length);
         topSalesGrid.innerHTML = topSales.map(renderProductCard).join('');
         attachProductCardListeners();
     }
@@ -1030,7 +1037,8 @@ function initAboutPage() {
             opacity: 0,
             y: 40,
             duration: 0.8,
-            delay: i * 0.15
+            delay: i * 0.15,
+            ease: 'power3.out'
         });
     });
 
@@ -1040,45 +1048,16 @@ function initAboutPage() {
             start: 'top 70%'
         },
         opacity: 0,
-        y: 30,
-        stagger: 0.2,
-        duration: 0.8
-    });
-}
-        });
-    });
-
-gsap.utils.toArray('.timeline-item').forEach((item, i) => {
-    gsap.from(item, {
-        scrollTrigger: {
-            trigger: item,
-            start: 'top 85%',
-        },
-        opacity: 0,
         y: 40,
         duration: 0.8,
-        delay: i * 0.15,
+        stagger: 0.15,
         ease: 'power3.out'
     });
-});
 
-gsap.from('.about-cta .cta-content > *', {
-    scrollTrigger: {
-        trigger: '.about-cta',
-        start: 'top 70%',
-    },
-    opacity: 0,
-    y: 40,
-    duration: 0.8,
-    stagger: 0.15,
-    ease: 'power3.out'
-});
-
-document.querySelector('.about-hero-scroll').addEventListener('click', () => {
-    gsap.to(window, {
-        scrollTo: '.about-intro',
-        duration: 1,
-        ease: 'power3.out'
+    document.querySelector('.about-hero-scroll').addEventListener('click', () => {
+        gsap.to(window, {
+            scrollTo: '.about-intro',
+            duration: 1,
+            ease: 'power3.out'
+        });
     });
-});
-}
