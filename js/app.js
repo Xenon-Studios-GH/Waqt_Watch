@@ -233,35 +233,24 @@ function formatPrice(price) {
 }
 
 function generateWatchSVG(imageId) {
-    const colors = {
-        'watch-1': '#c9a962',
-        'watch-2': '#1e40af',
-        'watch-3': '#374151',
-        'watch-4': '#c9a962',
-        'watch-5': '#374151',
-        'watch-6': '#d97706',
-        'watch-7': '#c9a962',
-        'watch-8': '#c9a962',
-        'watch-9': '#1e40af',
-        'watch-10': '#e5e7eb',
-        'watch-11': '#c9a962',
-        'watch-12': '#d97706'
+    const watchImages = {
+        'watch-1': 'WATCH FACES 1_upscayl_2x_upscayl-standard-4x.webp',
+        'watch-2': 'WATCH FACES 2_upscayl_2x_upscayl-standard-4x.webp',
+        'watch-3': 'WATCH FACES 3_upscayl_3x_upscayl-standard-4x.webp',
+        'watch-4': 'WATCH FACES 4_upscayl_2x_upscayl-standard-4x.webp',
+        'watch-5': 'WATCH FACES 6_upscayl_2x_upscayl-standard-4x.webp',
+        'watch-6': 'WATCH FACES 7_upscayl_3x_upscayl-standard-4x.webp',
+        'watch-7': 'WATCH FACES 8_upscayl_1x_upscayl-standard-4x.webp',
+        'watch-8': 'WATCH FACES 9_upscayl_2x_upscayl-standard-4x.webp',
+        'watch-9': 'WATCH FACES 10_upscayl_1x_upscayl-standard-4x.webp',
+        'watch-10': 'WATCH FACES 11_upscayl_1x_upscayl-standard-4x.webp',
+        'watch-11': 'WATCH FACES 1_upscayl_2x_upscayl-standard-4x.webp',
+        'watch-12': 'WATCH FACES 2_upscayl_2x_upscayl-standard-4x.webp'
     };
-    const color = colors[imageId] || '#c9a962';
     
-    return `<svg viewBox="0 0 100 100" fill="none" stroke="${color}" stroke-width="2">
-        <circle cx="50" cy="50" r="35" fill="none"/>
-        <circle cx="50" cy="50" r="30" fill="none"/>
-        <circle cx="50" cy="50" r="3" fill="${color}"/>
-        <line x1="50" y1="50" x2="50" y2="28" stroke-width="2.5"/>
-        <line x1="50" y1="50" x2="65" y2="50" stroke-width="2"/>
-        <rect x="46" y="10" width="8" height="8" rx="2" fill="${color}"/>
-        <rect x="46" y="82" width="8" height="8" rx="2" fill="${color}"/>
-        <rect x="10" y="46" width="8" height="8" rx="2" fill="${color}"/>
-        <rect x="82" y="46" width="8" height="8" rx="2" fill="${color}"/>
-        <text x="50" y="45" text-anchor="middle" font-size="6" fill="${color}">12</text>
-        <text x="50" y="62" text-anchor="middle" font-size="5" fill="${color}">6</text>
-    </svg>`;
+    const imageFile = watchImages[imageId] || 'WATCH FACES 1_upscayl_2x_upscayl-standard-4x.webp';
+    
+    return `<img src="assets/watch/${imageFile}" alt="Watch" class="product-watch-img">`;
 }
 
 function renderProductCard(product) {
@@ -610,14 +599,6 @@ function renderProductDetail(product) {
     
     const isInWishlist = state.wishlist.includes(product.id);
     
-    document.querySelector('.detail-brand').textContent = product.brand;
-    document.querySelector('.detail-name').textContent = product.name;
-    document.querySelector('.detail-price').textContent = formatPrice(product.price);
-    document.querySelector('.detail-description').textContent = product.description;
-    
-    const mainImage = document.querySelector('.product-main-image');
-    mainImage.innerHTML = generateWatchSVG(product.image);
-    
     document.querySelector('.product-gallery').innerHTML = `
         <div class="product-main-image">
             ${generateWatchSVG(product.image)}
@@ -770,6 +751,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (page === 'product-detail.html') {
         const product = getProductFromURL();
         renderProductDetail(product);
+        
+        const relatedGrid = document.getElementById('related-products');
+        if (relatedGrid) {
+            const relatedProducts = products.filter(p => p.id !== product.id).slice(0, 4);
+            relatedGrid.innerHTML = relatedProducts.map(renderProductCard).join('');
+            attachProductCardListeners();
+        }
     }
     
     if (page === 'checkout.html') {
@@ -816,6 +804,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (document.querySelector('.new-arrivals-section, .top-sales-section')) {
         initProductSections();
+    }
+    
+    if (document.querySelector('.about-hero')) {
+        initAboutPage();
     }
 });
 
@@ -931,4 +923,135 @@ function initCarousel() {
     hero.addEventListener('mouseleave', startAutoPlay);
     
     startAutoPlay();
+}
+
+function initAboutPage() {
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+    
+    const tl = gsap.timeline();
+    
+    tl.to('.about-hero-label', {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out'
+    })
+    .to('.title-word', {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: 'power3.out'
+    }, '-=0.4')
+    .to('.about-hero-line', {
+        opacity: 1,
+        scaleX: 1,
+        duration: 0.8,
+        ease: 'power3.out'
+    }, '-=0.6')
+    .to('.about-hero-subtitle', {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out'
+    }, '-=0.4')
+    .to('.about-hero-scroll', {
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out'
+    }, '-=0.2');
+    
+    gsap.utils.toArray('.about-intro-text > *').forEach((el, i) => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: 'top 80%',
+            },
+            opacity: 0,
+            y: 40,
+            duration: 0.8,
+            ease: 'power3.out'
+        });
+    });
+    
+    gsap.from('.visual-frame', {
+        scrollTrigger: {
+            trigger: '.about-intro-visual',
+            start: 'top 70%',
+        },
+        opacity: 0,
+        x: 60,
+        duration: 1,
+        ease: 'power3.out'
+    });
+    
+    gsap.utils.toArray('.value-card').forEach((card, i) => {
+        gsap.from(card, {
+            scrollTrigger: {
+                trigger: card,
+                start: 'top 85%',
+            },
+            opacity: 0,
+            y: 50,
+            duration: 0.8,
+            delay: i * 0.1,
+            ease: 'power3.out'
+        });
+    });
+    
+    const statNumbers = gsap.utils.toArray('.stat-number');
+    statNumbers.forEach((stat, i) => {
+        const target = parseInt(stat.dataset.target);
+        gsap.from(stat, {
+            scrollTrigger: {
+                trigger: stat,
+                start: 'top 85%',
+            },
+            opacity: 0,
+            y: 30,
+            duration: 0,
+            onComplete: function() {
+                gsap.to(stat, {
+                    innerHTML: target,
+                    duration: 2,
+                    snap: { innerHTML: 1 },
+                    ease: 'power2.out'
+                });
+            }
+        });
+    });
+    
+    gsap.utils.toArray('.timeline-item').forEach((item, i) => {
+        gsap.from(item, {
+            scrollTrigger: {
+                trigger: item,
+                start: 'top 85%',
+            },
+            opacity: 0,
+            y: 40,
+            duration: 0.8,
+            delay: i * 0.15,
+            ease: 'power3.out'
+        });
+    });
+    
+    gsap.from('.about-cta .cta-content > *', {
+        scrollTrigger: {
+            trigger: '.about-cta',
+            start: 'top 70%',
+        },
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power3.out'
+    });
+    
+    document.querySelector('.about-hero-scroll').addEventListener('click', () => {
+        gsap.to(window, {
+            scrollTo: '.about-intro',
+            duration: 1,
+            ease: 'power3.out'
+        });
+    });
 }
