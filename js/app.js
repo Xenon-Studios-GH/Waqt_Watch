@@ -926,97 +926,97 @@ function initCarousel() {
 }
 
 function initAboutPage() {
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
-    const tl = gsap.timeline();
-
-    tl.to('.about-hero-label', {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: 'power3.out'
-    })
-        .to('.title-word', {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: 'power3.out'
-        }, '-=0.4')
-        .to('.about-hero-line', {
-            opacity: 1,
-            scaleX: 1,
-            duration: 0.8,
-            ease: 'power3.out'
-        }, '-=0.6')
-        .to('.about-hero-subtitle', {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power3.out'
-        }, '-=0.4')
-        .to('.about-hero-scroll', {
-            opacity: 1,
-            duration: 0.8,
-            ease: 'power3.out'
-        }, '-=0.2');
-
-    gsap.utils.toArray('.about-intro-text > *').forEach((el, i) => {
-        gsap.from(el, {
-            scrollTrigger: {
-                trigger: el,
-                start: 'top 80%',
-            },
-            opacity: 0,
-            y: 40,
-            duration: 0.8,
-            ease: 'power3.out'
+    if (typeof gsap !== 'undefined') {
+        gsap.from('.about-hero-label', { opacity: 0, y: 20, duration: 1, delay: 0.2 });
+        gsap.from('.title-word', { opacity: 0, y: 50, duration: 1, stagger: 0.3, delay: 0.4 });
+        gsap.from('.about-hero-line', { opacity: 0, width: 0, duration: 1, delay: 0.8 });
+        gsap.from('.about-hero-subtitle', { opacity: 0, y: 20, duration: 1, delay: 1 });
+        
+        gsap.utils.toArray('.value-card').forEach(function(card, i) {
+            gsap.from(card, { opacity: 0, y: 30, duration: 0.8, delay: i * 0.1 });
         });
-    });
+        
+        gsap.utils.toArray('.stat-item').forEach(function(item) {
+            gsap.from(item, { opacity: 0, y: 30, duration: 0.8 });
+        });
+        
+        gsap.utils.toArray('.timeline-item').forEach(function(item, i) {
+            gsap.from(item, { opacity: 0, y: 30, duration: 0.8, delay: i * 0.15 });
+        });
+        
+        gsap.from('.about-cta .cta-content > *', { opacity: 0, y: 30, stagger: 0.2, duration: 0.8 });
+    }
+}
 
-    gsap.from('.visual-frame', {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.from('.about-hero-label', {
         scrollTrigger: {
-            trigger: '.about-intro-visual',
-            start: 'top 70%',
+            trigger: '.about-hero',
+            start: 'top 80%'
         },
         opacity: 0,
-        x: 60,
+        y: 30,
+        duration: 1
+    });
+
+    gsap.from('.title-word', {
+        scrollTrigger: {
+            trigger: '.about-hero-title',
+            start: 'top 80%'
+        },
+        opacity: 0,
+        y: 60,
         duration: 1,
-        ease: 'power3.out'
+        stagger: 0.2
+    });
+
+    gsap.from('.about-hero-line', {
+        scrollTrigger: {
+            trigger: '.about-hero',
+            start: 'top 70%'
+        },
+        opacity: 0,
+        scaleX: 0,
+        duration: 1
+    });
+
+    gsap.from('.about-hero-subtitle', {
+        scrollTrigger: {
+            trigger: '.about-hero',
+            start: 'top 60%'
+        },
+        opacity: 0,
+        y: 20,
+        duration: 1,
+        delay: 0.5
     });
 
     gsap.utils.toArray('.value-card').forEach((card, i) => {
         gsap.from(card, {
             scrollTrigger: {
                 trigger: card,
-                start: 'top 85%',
+                start: 'top 85%'
             },
             opacity: 0,
             y: 50,
             duration: 0.8,
-            delay: i * 0.1,
-            ease: 'power3.out'
+            delay: i * 0.1
         });
     });
 
-    const statNumbers = gsap.utils.toArray('.stat-number');
-    statNumbers.forEach((stat, i) => {
+    gsap.utils.toArray('.stat-number').forEach((stat) => {
         const target = parseInt(stat.dataset.target);
         gsap.from(stat, {
             scrollTrigger: {
                 trigger: stat,
-                start: 'top 85%',
+                start: 'top 85%'
             },
-            opacity: 0,
-            y: 30,
-            duration: 0,
-            onComplete: function () {
-                gsap.to(stat, {
-                    innerHTML: target,
-                    duration: 2,
-                    snap: { innerHTML: 1 },
-                    ease: 'power2.out'
-                });
+            innerHTML: 0,
+            duration: 2,
+            snap: { innerHTML: 1 },
+            onUpdate: function () {
+                this.targets()[0].innerHTML = Math.round(this.ratio * target);
             }
         });
     });
@@ -1025,33 +1025,60 @@ function initAboutPage() {
         gsap.from(item, {
             scrollTrigger: {
                 trigger: item,
-                start: 'top 85%',
+                start: 'top 85%'
             },
             opacity: 0,
             y: 40,
             duration: 0.8,
-            delay: i * 0.15,
-            ease: 'power3.out'
+            delay: i * 0.15
         });
     });
 
     gsap.from('.about-cta .cta-content > *', {
         scrollTrigger: {
             trigger: '.about-cta',
-            start: 'top 70%',
+            start: 'top 70%'
+        },
+        opacity: 0,
+        y: 30,
+        stagger: 0.2,
+        duration: 0.8
+    });
+}
+        });
+    });
+
+gsap.utils.toArray('.timeline-item').forEach((item, i) => {
+    gsap.from(item, {
+        scrollTrigger: {
+            trigger: item,
+            start: 'top 85%',
         },
         opacity: 0,
         y: 40,
         duration: 0.8,
-        stagger: 0.15,
+        delay: i * 0.15,
         ease: 'power3.out'
     });
+});
 
-    document.querySelector('.about-hero-scroll').addEventListener('click', () => {
-        gsap.to(window, {
-            scrollTo: '.about-intro',
-            duration: 1,
-            ease: 'power3.out'
-        });
+gsap.from('.about-cta .cta-content > *', {
+    scrollTrigger: {
+        trigger: '.about-cta',
+        start: 'top 70%',
+    },
+    opacity: 0,
+    y: 40,
+    duration: 0.8,
+    stagger: 0.15,
+    ease: 'power3.out'
+});
+
+document.querySelector('.about-hero-scroll').addEventListener('click', () => {
+    gsap.to(window, {
+        scrollTo: '.about-intro',
+        duration: 1,
+        ease: 'power3.out'
     });
+});
 }
